@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="camo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d3a2d"/>
+      <stop offset="25%" style="stop-color:#4a5d4a"/>
+      <stop offset="50%" style="stop-color:#6b5344"/>
+      <stop offset="75%" style="stop-color:#c4a35a"/>
+      <stop offset="100%" style="stop-color:#2d3a2d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#1a1f1a"/>
+
+  <!-- Camo pattern overlay -->
+  <rect x="0" y="0" width="200" height="150" fill="#2d3a2d"/>
+  <rect x="200" y="0" width="150" height="200" fill="#4a5d4a"/>
+  <rect x="350" y="0" width="200" height="100" fill="#6b5344"/>
+  <rect x="550" y="0" width="250" height="180" fill="#2d3a2d"/>
+  <rect x="800" y="0" width="200" height="120" fill="#c4a35a" opacity="0.3"/>
+  <rect x="1000" y="0" width="200" height="200" fill="#4a5d4a"/>
+
+  <rect x="0" y="150" width="180" height="180" fill="#4a5d4a"/>
+  <rect x="180" y="200" width="220" height="150" fill="#2d3a2d"/>
+  <rect x="400" y="100" width="150" height="250" fill="#c4a35a" opacity="0.2"/>
+  <rect x="550" y="180" width="250" height="170" fill="#6b5344"/>
+  <rect x="800" y="120" width="200" height="230" fill="#2d3a2d"/>
+  <rect x="1000" y="200" width="200" height="150" fill="#4a5d4a"/>
+
+  <!-- Header bar -->
+  <rect x="0" y="0" width="1200" height="80" fill="#1a1f1a" opacity="0.95"/>
+  <rect x="0" y="77" width="1200" height="3" fill="#c4a35a"/>
+
+  <!-- Logo text -->
+  <text x="50" y="50" font-family="Arial Black, sans-serif" font-size="28" fill="#f5f0e1" font-weight="bold">COMIC</text>
+  <text x="152" y="50" font-family="Arial Black, sans-serif" font-size="28" fill="#c4a35a" font-weight="bold">ARMOR</text>
+
+  <!-- Nav items -->
+  <text x="650" y="48" font-family="Arial, sans-serif" font-size="14" fill="#f5f0e1" letter-spacing="2">HOME</text>
+  <text x="750" y="48" font-family="Arial, sans-serif" font-size="14" fill="#f5f0e1" letter-spacing="2">SHOP</text>
+  <text x="850" y="48" font-family="Arial, sans-serif" font-size="14" fill="#f5f0e1" letter-spacing="2">ABOUT</text>
+  <text x="950" y="48" font-family="Arial, sans-serif" font-size="14" fill="#f5f0e1" letter-spacing="2">CONTACT</text>
+
+  <!-- Cart icon placeholder -->
+  <circle cx="1100" cy="40" r="15" fill="none" stroke="#f5f0e1" stroke-width="2"/>
+  <circle cx="1110" cy="30" r="8" fill="#8b2a2a"/>
+  <text x="1107" y="34" font-family="Arial, sans-serif" font-size="10" fill="#fff">2</text>
+
+  <!-- Hero Section -->
+  <rect x="100" y="150" width="1000" height="450" fill="#2d3a2d" opacity="0.8"/>
+
+  <!-- Subtitle -->
+  <text x="600" y="280" font-family="Georgia, serif" font-size="18" fill="#c4a35a" text-anchor="middle" font-style="italic" letter-spacing="3">PREMIUM COMIC BOOK PROTECTION</text>
+
+  <!-- Main Title -->
+  <text x="600" y="380" font-family="Arial Black, sans-serif" font-size="72" fill="#f5f0e1" text-anchor="middle" font-weight="bold">COMIC</text>
+  <text x="600" y="460" font-family="Arial Black, sans-serif" font-size="72" fill="#c4a35a" text-anchor="middle" font-weight="bold">ARMOR</text>
+
+  <!-- Buttons -->
+  <rect x="350" y="500" width="180" height="50" fill="#c4a35a"/>
+  <text x="440" y="532" font-family="Arial, sans-serif" font-size="14" fill="#1a1f1a" text-anchor="middle" font-weight="bold" letter-spacing="2">SHOP NOW</text>
+
+  <rect x="560" y="500" width="180" height="50" fill="none" stroke="#f5f0e1" stroke-width="2"/>
+  <text x="650" y="532" font-family="Arial, sans-serif" font-size="14" fill="#f5f0e1" text-anchor="middle" font-weight="bold" letter-spacing="2">WATCH DEMO</text>
+
+  <!-- Slider dots -->
+  <circle cx="560" cy="580" r="6" fill="#c4a35a"/>
+  <circle cx="590" cy="580" r="6" fill="none" stroke="#c4a35a" stroke-width="2"/>
+  <circle cx="620" cy="580" r="6" fill="none" stroke="#c4a35a" stroke-width="2"/>
+
+  <!-- Features Section Label -->
+  <text x="600" y="680" font-family="Georgia, serif" font-size="14" fill="#c4a35a" text-anchor="middle" font-style="italic" letter-spacing="3">WHY CHOOSE US</text>
+  <text x="600" y="720" font-family="Arial Black, sans-serif" font-size="32" fill="#f5f0e1" text-anchor="middle" font-weight="bold">MILITARY-GRADE PROTECTION</text>
+
+  <!-- Feature boxes -->
+  <rect x="100" y="760" width="220" height="120" fill="rgba(255,255,255,0.05)" stroke="rgba(196,163,90,0.3)"/>
+  <rect x="350" y="760" width="220" height="120" fill="rgba(255,255,255,0.05)" stroke="rgba(196,163,90,0.3)"/>
+  <rect x="600" y="760" width="220" height="120" fill="rgba(255,255,255,0.05)" stroke="rgba(196,163,90,0.3)"/>
+  <rect x="850" y="760" width="220" height="120" fill="rgba(255,255,255,0.05)" stroke="rgba(196,163,90,0.3)"/>
+
+  <!-- Feature icons -->
+  <rect x="185" y="780" width="50" height="50" fill="#c4a35a"/>
+  <rect x="435" y="780" width="50" height="50" fill="#c4a35a"/>
+  <rect x="685" y="780" width="50" height="50" fill="#c4a35a"/>
+  <rect x="935" y="780" width="50" height="50" fill="#c4a35a"/>
+
+  <!-- Feature labels -->
+  <text x="210" y="860" font-family="Arial, sans-serif" font-size="12" fill="#f5f0e1" text-anchor="middle">IMPACT RESISTANT</text>
+  <text x="460" y="860" font-family="Arial, sans-serif" font-size="12" fill="#f5f0e1" text-anchor="middle">BEND PREVENTION</text>
+  <text x="710" y="860" font-family="Arial, sans-serif" font-size="12" fill="#f5f0e1" text-anchor="middle">WATER RESISTANT</text>
+  <text x="960" y="860" font-family="Arial, sans-serif" font-size="12" fill="#f5f0e1" text-anchor="middle">LIGHTWEIGHT</text>
+</svg>

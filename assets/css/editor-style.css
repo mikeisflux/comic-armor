@@ -1,0 +1,49 @@
+/**
+ * Editor Styles
+ *
+ * @package Comic_Armor
+ */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1a1f1a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #1a1f1a;
+}
+
+a {
+    color: #c4a35a;
+}
+
+a:hover {
+    color: #c9a227;
+}
+
+blockquote {
+    border-left: 4px solid #c4a35a;
+    padding-left: 20px;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+.wp-block-button__link {
+    background: #c4a35a;
+    color: #1a1f1a;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 15px 35px;
+    border-radius: 0;
+}
+
+.wp-block-button__link:hover {
+    background: #c9a227;
+}
