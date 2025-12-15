@@ -82,6 +82,22 @@ function comic_armor_setup() {
 add_action( 'after_setup_theme', 'comic_armor_setup' );
 
 /**
+ * Fallback menu if no menu is set
+ */
+function comic_armor_fallback_menu() {
+    ?>
+    <ul class="nav-menu">
+        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="<?php echo is_front_page() ? 'active' : ''; ?>">Home</a></li>
+        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+            <li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="<?php echo is_shop() ? 'active' : ''; ?>">Shop</a></li>
+        <?php endif; ?>
+        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
+    </ul>
+    <?php
+}
+
+/**
  * Enqueue Scripts and Styles
  */
 function comic_armor_scripts() {
