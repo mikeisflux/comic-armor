@@ -19,27 +19,18 @@ define( 'COMIC_ARMOR_URI', get_template_directory_uri() );
  * Theme Setup
  */
 function comic_armor_setup() {
-    // Add default posts and comments RSS feed links to head
     add_theme_support( 'automatic-feed-links' );
-
-    // Let WordPress manage the document title
     add_theme_support( 'title-tag' );
-
-    // Enable support for Post Thumbnails
     add_theme_support( 'post-thumbnails' );
-
-    // Custom image sizes
     add_image_size( 'comic-armor-hero', 1920, 1080, true );
     add_image_size( 'comic-armor-product', 600, 600, true );
     add_image_size( 'comic-armor-thumbnail', 400, 400, true );
 
-    // Register navigation menus
     register_nav_menus( array(
         'primary'   => esc_html__( 'Primary Menu', 'comic-armor' ),
         'footer'    => esc_html__( 'Footer Menu', 'comic-armor' ),
     ) );
 
-    // Switch default core markup to output valid HTML5
     add_theme_support( 'html5', array(
         'search-form',
         'comment-form',
@@ -50,7 +41,6 @@ function comic_armor_setup() {
         'script',
     ) );
 
-    // Add support for custom logo
     add_theme_support( 'custom-logo', array(
         'height'      => 100,
         'width'       => 300,
@@ -58,24 +48,18 @@ function comic_armor_setup() {
         'flex-width'  => true,
     ) );
 
-    // Add support for custom background
     add_theme_support( 'custom-background', array(
         'default-color' => '1a1f1a',
     ) );
 
-    // Add WooCommerce support
+    // WooCommerce support
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
     add_theme_support( 'wc-product-gallery-lightbox' );
     add_theme_support( 'wc-product-gallery-slider' );
 
-    // Add support for wide and full alignments
     add_theme_support( 'align-wide' );
-
-    // Add support for responsive embeds
     add_theme_support( 'responsive-embeds' );
-
-    // Add editor styles
     add_theme_support( 'editor-styles' );
     add_editor_style( 'assets/css/editor-style.css' );
 }
@@ -85,23 +69,20 @@ add_action( 'after_setup_theme', 'comic_armor_setup' );
  * Fallback menu if no menu is set
  */
 function comic_armor_fallback_menu() {
-    ?>
-    <ul class="nav-menu">
-        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="<?php echo is_front_page() ? 'active' : ''; ?>">Home</a></li>
-        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-            <li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="<?php echo is_shop() ? 'active' : ''; ?>">Shop</a></li>
-        <?php endif; ?>
-        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
-        <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
-    </ul>
-    <?php
+    echo '<ul class="nav-menu">';
+    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">Home</a></li>';
+    if ( class_exists( 'WooCommerce' ) ) {
+        echo '<li><a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Shop</a></li>';
+    }
+    echo '<li><a href="' . esc_url( home_url( '/about/' ) ) . '">About</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/contact/' ) ) . '">Contact</a></li>';
+    echo '</ul>';
 }
 
 /**
  * Enqueue Scripts and Styles
  */
 function comic_armor_scripts() {
-    // Google Fonts
     wp_enqueue_style(
         'comic-armor-fonts',
         'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap',
@@ -109,7 +90,6 @@ function comic_armor_scripts() {
         null
     );
 
-    // Font Awesome
     wp_enqueue_style(
         'font-awesome',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css',
@@ -117,7 +97,6 @@ function comic_armor_scripts() {
         '6.4.2'
     );
 
-    // Main stylesheet
     wp_enqueue_style(
         'comic-armor-style',
         get_stylesheet_uri(),
@@ -125,7 +104,6 @@ function comic_armor_scripts() {
         COMIC_ARMOR_VERSION
     );
 
-    // Custom theme styles
     wp_enqueue_style(
         'comic-armor-custom',
         COMIC_ARMOR_URI . '/assets/css/custom.css',
@@ -133,7 +111,6 @@ function comic_armor_scripts() {
         COMIC_ARMOR_VERSION
     );
 
-    // Main JavaScript
     wp_enqueue_script(
         'comic-armor-main',
         COMIC_ARMOR_URI . '/assets/js/main.js',
@@ -142,7 +119,6 @@ function comic_armor_scripts() {
         true
     );
 
-    // Slider JavaScript
     wp_enqueue_script(
         'comic-armor-slider',
         COMIC_ARMOR_URI . '/assets/js/slider.js',
@@ -151,7 +127,6 @@ function comic_armor_scripts() {
         true
     );
 
-    // Localize script for AJAX
     wp_localize_script( 'comic-armor-main', 'comicArmor', array(
         'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
         'nonce'     => wp_create_nonce( 'comic-armor-nonce' ),
@@ -159,7 +134,6 @@ function comic_armor_scripts() {
         'themeUrl'  => COMIC_ARMOR_URI,
     ) );
 
-    // Comment reply script
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
@@ -221,14 +195,6 @@ function comic_armor_widgets_init() {
     ) );
 }
 add_action( 'widgets_init', 'comic_armor_widgets_init' );
-
-/**
- * WooCommerce Basic Setup - detailed functions in inc/woocommerce-functions.php
- */
-if ( class_exists( 'WooCommerce' ) ) {
-    // Remove default WooCommerce styles - we use our own
-    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
-}
 
 /**
  * Custom Theme Options (Customizer)
@@ -522,7 +488,7 @@ add_action( 'customize_register', 'comic_armor_customize_register' );
  */
 function comic_armor_get_featured_products( $limit = 4 ) {
     if ( ! class_exists( 'WooCommerce' ) ) {
-        return array();
+        return false;
     }
 
     $args = array(
@@ -540,7 +506,6 @@ function comic_armor_get_featured_products( $limit = 4 ) {
 
     $products = new WP_Query( $args );
 
-    // If no featured products, get latest products
     if ( ! $products->have_posts() ) {
         $args = array(
             'post_type'      => 'product',
@@ -593,54 +558,40 @@ function comic_armor_body_classes( $classes ) {
 add_filter( 'body_class', 'comic_armor_body_classes' );
 
 /**
- * Include template parts
+ * Include template parts - check if files exist first
  */
-require_once COMIC_ARMOR_DIR . '/inc/template-tags.php';
-require_once COMIC_ARMOR_DIR . '/inc/template-functions.php';
+$template_tags = COMIC_ARMOR_DIR . '/inc/template-tags.php';
+$template_functions = COMIC_ARMOR_DIR . '/inc/template-functions.php';
+
+if ( file_exists( $template_tags ) ) {
+    require_once $template_tags;
+}
+
+if ( file_exists( $template_functions ) ) {
+    require_once $template_functions;
+}
 
 /**
  * WooCommerce template hooks
  */
 if ( class_exists( 'WooCommerce' ) ) {
-    require_once COMIC_ARMOR_DIR . '/inc/woocommerce-functions.php';
-}
+    // Remove default WooCommerce styles - we use our own
+    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
-/**
- * AJAX Add to Cart
- */
-function comic_armor_ajax_add_to_cart() {
-    if ( ! class_exists( 'WooCommerce' ) ) {
-        wp_send_json_error( 'WooCommerce not active' );
+    $woo_functions = COMIC_ARMOR_DIR . '/inc/woocommerce-functions.php';
+    if ( file_exists( $woo_functions ) ) {
+        require_once $woo_functions;
     }
-
-    $product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
-    $quantity   = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
-
-    if ( $product_id ) {
-        $added = WC()->cart->add_to_cart( $product_id, $quantity );
-        if ( $added ) {
-            wp_send_json_success( array(
-                'cart_count' => WC()->cart->get_cart_contents_count(),
-                'cart_total' => WC()->cart->get_cart_total(),
-            ) );
-        }
-    }
-
-    wp_send_json_error( 'Could not add to cart' );
 }
-add_action( 'wp_ajax_comic_armor_add_to_cart', 'comic_armor_ajax_add_to_cart' );
-add_action( 'wp_ajax_nopriv_comic_armor_add_to_cart', 'comic_armor_ajax_add_to_cart' );
 
 /**
  * Admin notice for WooCommerce
  */
 function comic_armor_admin_notice() {
     if ( ! class_exists( 'WooCommerce' ) ) {
-        ?>
-        <div class="notice notice-warning">
-            <p><?php esc_html_e( 'Comic Armor theme recommends installing WooCommerce for full e-commerce functionality.', 'comic-armor' ); ?></p>
-        </div>
-        <?php
+        echo '<div class="notice notice-warning"><p>';
+        esc_html_e( 'Comic Armor theme recommends installing WooCommerce for full e-commerce functionality.', 'comic-armor' );
+        echo '</p></div>';
     }
 }
 add_action( 'admin_notices', 'comic_armor_admin_notice' );
