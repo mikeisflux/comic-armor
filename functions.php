@@ -223,58 +223,11 @@ function comic_armor_widgets_init() {
 add_action( 'widgets_init', 'comic_armor_widgets_init' );
 
 /**
- * WooCommerce Functions
+ * WooCommerce Basic Setup - detailed functions in inc/woocommerce-functions.php
  */
 if ( class_exists( 'WooCommerce' ) ) {
-
-    // Change number of products per row
-    add_filter( 'loop_shop_columns', function() {
-        return 4;
-    } );
-
-    // Change number of products displayed per page
-    add_filter( 'loop_shop_per_page', function() {
-        return 12;
-    } );
-
-    // Remove default WooCommerce styles
+    // Remove default WooCommerce styles - we use our own
     add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
-
-    // Add custom WooCommerce styles
-    function comic_armor_woocommerce_styles() {
-        wp_enqueue_style(
-            'comic-armor-woocommerce',
-            COMIC_ARMOR_URI . '/assets/css/woocommerce.css',
-            array(),
-            COMIC_ARMOR_VERSION
-        );
-    }
-    add_action( 'wp_enqueue_scripts', 'comic_armor_woocommerce_styles', 20 );
-
-    // Customize Add to Cart button text
-    add_filter( 'woocommerce_product_add_to_cart_text', function( $text, $product ) {
-        if ( $product->is_type( 'simple' ) ) {
-            return __( 'Add to Cart', 'comic-armor' );
-        }
-        return $text;
-    }, 10, 2 );
-
-    // Add custom wrapper for products
-    remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-    remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
-
-    add_action( 'woocommerce_before_main_content', function() {
-        echo '<div class="comic-armor-woocommerce-wrapper">';
-        echo '<div class="container">';
-    }, 10 );
-
-    add_action( 'woocommerce_after_main_content', function() {
-        echo '</div>';
-        echo '</div>';
-    }, 10 );
-
-    // Remove sidebar from product pages
-    remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 }
 
 /**

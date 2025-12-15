@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             <!-- Header Actions -->
             <div class="header-actions">
-                <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+                <?php if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) && WC()->cart ) : ?>
                     <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-icon" title="<?php esc_attr_e( 'View Cart', 'comic-armor' ); ?>">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count"><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>

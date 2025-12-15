@@ -23,9 +23,38 @@ function comic_armor_woocommerce_scripts() {
 add_action( 'wp_enqueue_scripts', 'comic_armor_woocommerce_scripts', 20 );
 
 /**
- * Remove WooCommerce breadcrumbs
+ * WooCommerce setup - remove defaults and add custom wrappers
  */
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+function comic_armor_woocommerce_setup() {
+    // Remove WooCommerce breadcrumbs
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+    // Remove default content wrappers
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+    remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+    // Remove sidebar from product pages
+    remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+}
+add_action( 'init', 'comic_armor_woocommerce_setup' );
+
+/**
+ * Custom content wrapper - opening
+ */
+function comic_armor_woocommerce_wrapper_start() {
+    echo '<div class="comic-armor-woocommerce-wrapper">';
+    echo '<div class="container">';
+}
+add_action( 'woocommerce_before_main_content', 'comic_armor_woocommerce_wrapper_start', 10 );
+
+/**
+ * Custom content wrapper - closing
+ */
+function comic_armor_woocommerce_wrapper_end() {
+    echo '</div>';
+    echo '</div>';
+}
+add_action( 'woocommerce_after_main_content', 'comic_armor_woocommerce_wrapper_end', 10 );
 
 /**
  * Change products per row

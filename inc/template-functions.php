@@ -37,12 +37,11 @@ function comic_armor_preconnect_google_fonts( $urls, $relation_type ) {
 add_filter( 'wp_resource_hints', 'comic_armor_preconnect_google_fonts', 10, 2 );
 
 /**
- * Modify excerpt more
+ * Modify excerpt more - using different function name to avoid conflict
  */
-function comic_armor_excerpt_more( $more ) {
+function comic_armor_custom_excerpt_more( $more ) {
     return '&hellip;';
 }
-add_filter( 'excerpt_more', 'comic_armor_excerpt_more' );
 
 /**
  * Custom comment callback
