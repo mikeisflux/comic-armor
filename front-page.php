@@ -17,119 +17,97 @@ get_header();
     <!-- Hero Slider Section -->
     <section class="hero-slider camo-overlay">
         <div class="slider-wrapper">
-            <!-- Slide 1 -->
-            <div class="slide active" data-slide="1">
-                <div class="slide-background" style="background-image: url('<?php echo esc_url( get_theme_mod( 'hero_slide_1_image', COMIC_ARMOR_URI . '/assets/images/hero-bg-1.jpg' ) ); ?>');">
-                    <?php
-                    $video_url = get_theme_mod( 'hero_slide_1_video' );
-                    if ( $video_url ) :
-                    ?>
-                        <video class="slide-video" autoplay muted loop playsinline>
-                            <source src="<?php echo esc_url( $video_url ); ?>" type="video/mp4">
+            <?php
+            // Slide data
+            $slides = array(
+                1 => array(
+                    'title'       => get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_1_subtitle', 'Premium Comic Book Protection' ),
+                    'description' => get_theme_mod( 'hero_slide_1_description', 'Defend your comics from damage during shipping. Military-grade protection for your valuable collection.' ),
+                    'image'       => get_theme_mod( 'hero_slide_1_image', '' ),
+                    'video'       => get_theme_mod( 'hero_slide_1_video', '' ),
+                    'btn1_text'   => 'Shop Now',
+                    'btn1_icon'   => 'fa-arrow-right',
+                    'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
+                    'btn2_text'   => 'Watch Demo',
+                    'btn2_icon'   => 'fa-play',
+                    'btn2_url'    => '#video-section',
+                ),
+                2 => array(
+                    'title'       => get_theme_mod( 'hero_slide_2_title', 'BATTLE TESTED' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_2_subtitle', 'Proven Protection' ),
+                    'description' => get_theme_mod( 'hero_slide_2_description', 'Trusted by collectors and dealers worldwide. Your comics deserve the best defense.' ),
+                    'image'       => get_theme_mod( 'hero_slide_2_image', '' ),
+                    'video'       => get_theme_mod( 'hero_slide_2_video', '' ),
+                    'btn1_text'   => 'Learn More',
+                    'btn1_icon'   => 'fa-arrow-right',
+                    'btn1_url'    => '#about-section',
+                    'btn2_text'   => 'Reviews',
+                    'btn2_icon'   => 'fa-star',
+                    'btn2_url'    => '#testimonials',
+                ),
+                3 => array(
+                    'title'       => get_theme_mod( 'hero_slide_3_title', 'SHOP NOW' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_3_subtitle', 'Gear Up Today' ),
+                    'description' => get_theme_mod( 'hero_slide_3_description', 'Get your Comic Armor now and ensure your shipments arrive in mint condition.' ),
+                    'image'       => get_theme_mod( 'hero_slide_3_image', '' ),
+                    'video'       => get_theme_mod( 'hero_slide_3_video', '' ),
+                    'btn1_text'   => 'Browse Products',
+                    'btn1_icon'   => 'fa-shopping-cart',
+                    'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
+                    'btn2_text'   => '',
+                    'btn2_icon'   => '',
+                    'btn2_url'    => '',
+                ),
+            );
+
+            foreach ( $slides as $num => $slide ) :
+                $is_active = ( $num === 1 ) ? 'active' : '';
+                $has_video = ! empty( $slide['video'] );
+            ?>
+            <!-- Slide <?php echo esc_attr( $num ); ?> -->
+            <div class="slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
+                <div class="slide-background" style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');">
+                    <?php if ( $has_video ) : ?>
+                        <video class="slide-video" muted loop playsinline preload="metadata">
+                            <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
                         </video>
+                        <button class="video-play-btn" aria-label="<?php esc_attr_e( 'Play Video', 'comic-armor' ); ?>">
+                            <i class="fas fa-play"></i>
+                            <span><?php esc_html_e( 'Play Video', 'comic-armor' ); ?></span>
+                        </button>
                     <?php endif; ?>
                 </div>
                 <div class="slide-content">
-                    <span class="slide-subtitle animate-fadeInUp">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_1_subtitle', 'Premium Comic Book Protection' ) ); ?>
+                    <span class="slide-subtitle <?php echo $num === 1 ? 'animate-fadeInUp' : ''; ?>">
+                        <?php echo esc_html( $slide['subtitle'] ); ?>
                     </span>
-                    <h1 class="slide-title animate-fadeInUp animate-delay-1">
+                    <h1 class="slide-title <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-1' : ''; ?>">
                         <?php
-                        $title = get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' );
-                        $words = explode( ' ', $title );
+                        $words = explode( ' ', $slide['title'] );
                         if ( count( $words ) > 1 ) {
                             echo esc_html( $words[0] ) . ' <span>' . esc_html( implode( ' ', array_slice( $words, 1 ) ) ) . '</span>';
                         } else {
-                            echo esc_html( $title );
+                            echo '<span>' . esc_html( $slide['title'] ) . '</span>';
                         }
                         ?>
                     </h1>
-                    <p class="slide-description animate-fadeInUp animate-delay-2">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_1_description', 'Defend your comics from damage during shipping. Military-grade protection for your valuable collection.' ) ); ?>
+                    <p class="slide-description <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-2' : ''; ?>">
+                        <?php echo esc_html( $slide['description'] ); ?>
                     </p>
-                    <div class="slide-buttons animate-fadeInUp animate-delay-3">
-                        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn btn-primary">
-                                Shop Now <i class="fas fa-arrow-right btn-icon"></i>
-                            </a>
-                        <?php else : ?>
-                            <a href="#products" class="btn btn-primary">
-                                Shop Now <i class="fas fa-arrow-right btn-icon"></i>
-                            </a>
-                        <?php endif; ?>
-                        <a href="#video-section" class="btn btn-outline video-trigger">
-                            <i class="fas fa-play btn-icon"></i> Watch Demo
+                    <div class="slide-buttons <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-3' : ''; ?>">
+                        <a href="<?php echo esc_url( $slide['btn1_url'] ); ?>" class="btn btn-primary">
+                            <?php echo esc_html( $slide['btn1_text'] ); ?> <i class="fas <?php echo esc_attr( $slide['btn1_icon'] ); ?> btn-icon"></i>
                         </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="slide" data-slide="2">
-                <div class="slide-background" style="background-image: url('<?php echo esc_url( get_theme_mod( 'hero_slide_2_image', COMIC_ARMOR_URI . '/assets/images/hero-bg-2.jpg' ) ); ?>');"></div>
-                <div class="slide-content">
-                    <span class="slide-subtitle">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_2_subtitle', 'Proven Protection' ) ); ?>
-                    </span>
-                    <h1 class="slide-title">
-                        <?php
-                        $title = get_theme_mod( 'hero_slide_2_title', 'BATTLE TESTED' );
-                        $words = explode( ' ', $title );
-                        if ( count( $words ) > 1 ) {
-                            echo esc_html( $words[0] ) . ' <span>' . esc_html( implode( ' ', array_slice( $words, 1 ) ) ) . '</span>';
-                        } else {
-                            echo esc_html( $title );
-                        }
-                        ?>
-                    </h1>
-                    <p class="slide-description">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_2_description', 'Trusted by collectors and dealers worldwide. Your comics deserve the best defense.' ) ); ?>
-                    </p>
-                    <div class="slide-buttons">
-                        <a href="#about-section" class="btn btn-primary">
-                            Learn More <i class="fas fa-arrow-right btn-icon"></i>
-                        </a>
-                        <a href="#testimonials" class="btn btn-outline">
-                            <i class="fas fa-star btn-icon"></i> Reviews
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="slide" data-slide="3">
-                <div class="slide-background" style="background-image: url('<?php echo esc_url( get_theme_mod( 'hero_slide_3_image', COMIC_ARMOR_URI . '/assets/images/hero-bg-3.jpg' ) ); ?>');"></div>
-                <div class="slide-content">
-                    <span class="slide-subtitle">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_3_subtitle', 'Gear Up Today' ) ); ?>
-                    </span>
-                    <h1 class="slide-title">
-                        <?php
-                        $title = get_theme_mod( 'hero_slide_3_title', 'SHOP NOW' );
-                        $words = explode( ' ', $title );
-                        if ( count( $words ) > 1 ) {
-                            echo esc_html( $words[0] ) . ' <span>' . esc_html( implode( ' ', array_slice( $words, 1 ) ) ) . '</span>';
-                        } else {
-                            echo '<span>' . esc_html( $title ) . '</span>';
-                        }
-                        ?>
-                    </h1>
-                    <p class="slide-description">
-                        <?php echo esc_html( get_theme_mod( 'hero_slide_3_description', 'Get your Comic Armor now and ensure your shipments arrive in mint condition.' ) ); ?>
-                    </p>
-                    <div class="slide-buttons">
-                        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn btn-primary">
-                                Browse Products <i class="fas fa-shopping-cart btn-icon"></i>
-                            </a>
-                        <?php else : ?>
-                            <a href="#products" class="btn btn-primary">
-                                Browse Products <i class="fas fa-shopping-cart btn-icon"></i>
+                        <?php if ( ! empty( $slide['btn2_text'] ) ) : ?>
+                            <a href="<?php echo esc_url( $slide['btn2_url'] ); ?>" class="btn btn-outline">
+                                <i class="fas <?php echo esc_attr( $slide['btn2_icon'] ); ?> btn-icon"></i> <?php echo esc_html( $slide['btn2_text'] ); ?>
                             </a>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
+            <?php endforeach; ?>
         </div>
 
         <!-- Slider Navigation Dots -->

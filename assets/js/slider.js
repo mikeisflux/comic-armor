@@ -20,13 +20,107 @@
             this.autoplayInterval = null;
             this.autoplayDelay = 6000;
             this.isAnimating = false;
+            this.isVideoPlaying = false;
 
             this.init();
         }
 
         init() {
             this.bindEvents();
+            this.initVideos();
             this.startAutoplay();
+        }
+
+        initVideos() {
+            // Find all video slides and set up play buttons
+            this.$slides.each((index, slide) => {
+                const $slide = $(slide);
+                const $video = $slide.find('.slide-video');
+                const $playBtn = $slide.find('.video-play-btn');
+
+                if ($video.length && $playBtn.length) {
+                    // Click play button to start video
+                    $playBtn.on('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.playVideo($slide, $video, $playBtn);
+                    });
+
+                    // Video ended - reset
+                    $video[0].addEventListener('ended', () => {
+                        this.resetVideo($slide, $video, $playBtn);
+                    });
+
+                    // Click video to pause
+                    $video.on('click', () => {
+                        if (!$video[0].paused) {
+                            this.pauseVideo($slide, $video, $playBtn);
+                        }
+                    });
+                }
+            });
+        }
+
+        playVideo($slide, $video, $playBtn) {
+            const video = $video[0];
+
+            // Unmute and play
+            video.muted = false;
+            video.currentTime = 0;
+            video.play();
+
+            // Update UI
+            $slide.addClass('video-playing');
+            $playBtn.addClass('hidden');
+            this.isVideoPlaying = true;
+
+            // Stop autoplay while video plays
+            this.stopAutoplay();
+        }
+
+        pauseVideo($slide, $video, $playBtn) {
+            const video = $video[0];
+
+            video.pause();
+            $slide.removeClass('video-playing');
+            $playBtn.removeClass('hidden');
+            this.isVideoPlaying = false;
+
+            // Resume autoplay
+            this.startAutoplay();
+        }
+
+        resetVideo($slide, $video, $playBtn) {
+            const video = $video[0];
+
+            video.muted = true;
+            video.currentTime = 0;
+            $slide.removeClass('video-playing');
+            $playBtn.removeClass('hidden');
+            this.isVideoPlaying = false;
+
+            // Resume autoplay
+            this.startAutoplay();
+        }
+
+        stopAllVideos() {
+            this.$slides.each((index, slide) => {
+                const $slide = $(slide);
+                const $video = $slide.find('.slide-video');
+                const $playBtn = $slide.find('.video-play-btn');
+
+                if ($video.length) {
+                    const video = $video[0];
+                    video.pause();
+                    video.muted = true;
+                    video.currentTime = 0;
+                    $slide.removeClass('video-playing');
+                    if ($playBtn.length) {
+                        $playBtn.removeClass('hidden');
+                    }
+                }
+            });
+            this.isVideoPlaying = false;
         }
 
         bindEvents() {
@@ -47,12 +141,17 @@
 
             // Keyboard navigation
             $(document).on('keydown', (e) => {
-                if (this.isSliderInView()) {
+                if (this.isSliderInView() && !this.isVideoPlaying) {
                     if (e.key === 'ArrowLeft') {
                         this.prevSlide();
                     } else if (e.key === 'ArrowRight') {
                         this.nextSlide();
                     }
+                }
+                // Escape to stop video
+                if (e.key === 'Escape' && this.isVideoPlaying) {
+                    this.stopAllVideos();
+                    this.startAutoplay();
                 }
             });
 
@@ -66,23 +165,30 @@
 
             this.$slider.on('touchend', (e) => {
                 touchEndX = e.originalEvent.changedTouches[0].clientX;
-                this.handleSwipe(touchStartX, touchEndX);
+                if (!this.isVideoPlaying) {
+                    this.handleSwipe(touchStartX, touchEndX);
+                }
             });
 
-            // Pause autoplay on hover
+            // Pause autoplay on hover (but not during video)
             this.$slider.on('mouseenter', () => {
-                this.stopAutoplay();
+                if (!this.isVideoPlaying) {
+                    this.stopAutoplay();
+                }
             });
 
             this.$slider.on('mouseleave', () => {
-                this.startAutoplay();
+                if (!this.isVideoPlaying) {
+                    this.startAutoplay();
+                }
             });
 
             // Pause when tab is not visible
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
                     this.stopAutoplay();
-                } else {
+                    this.stopAllVideos();
+                } else if (!this.isVideoPlaying) {
                     this.startAutoplay();
                 }
             });
@@ -92,6 +198,9 @@
             if (this.isAnimating || index === this.currentSlide) {
                 return;
             }
+
+            // Stop any playing videos when changing slides
+            this.stopAllVideos();
 
             this.isAnimating = true;
 
@@ -144,7 +253,7 @@
         }
 
         startAutoplay() {
-            if (this.autoplayInterval) {
+            if (this.autoplayInterval || this.isVideoPlaying) {
                 return;
             }
 
@@ -162,7 +271,9 @@
 
         resetAutoplay() {
             this.stopAutoplay();
-            this.startAutoplay();
+            if (!this.isVideoPlaying) {
+                this.startAutoplay();
+            }
         }
 
         isSliderInView() {

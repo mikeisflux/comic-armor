@@ -299,6 +299,17 @@ function comic_armor_customize_register( $wp_customize ) {
         'section' => 'comic_armor_hero',
     ) ) );
 
+    $wp_customize->add_setting( 'hero_slide_2_video', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_2_video', array(
+        'label'       => __( 'Slide 2 Video URL (MP4)', 'comic-armor' ),
+        'section'     => 'comic_armor_hero',
+        'type'        => 'url',
+        'description' => __( 'Optional: Add a video for this slide.', 'comic-armor' ),
+    ) );
+
     // Slide 3
     $wp_customize->add_setting( 'hero_slide_3_title', array(
         'default'           => 'SHOP NOW',
@@ -338,6 +349,17 @@ function comic_armor_customize_register( $wp_customize ) {
         'label'   => __( 'Slide 3 Background Image', 'comic-armor' ),
         'section' => 'comic_armor_hero',
     ) ) );
+
+    $wp_customize->add_setting( 'hero_slide_3_video', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_3_video', array(
+        'label'       => __( 'Slide 3 Video URL (MP4)', 'comic-armor' ),
+        'section'     => 'comic_armor_hero',
+        'type'        => 'url',
+        'description' => __( 'Optional: Add a video for this slide.', 'comic-armor' ),
+    ) );
 
     // About Section
     $wp_customize->add_section( 'comic_armor_about', array(

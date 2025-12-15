@@ -497,6 +497,86 @@ body.menu-open {
 }
 
 /* ==========================================================================
+   Video Play Button (Slider)
+   ========================================================================== */
+.video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid var(--camo-tan);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    padding: 0;
+    justify-content: center;
+}
+
+.video-play-btn i {
+    font-size: 2rem;
+    color: var(--camo-tan);
+    margin-left: 5px; /* Visual centering for play icon */
+}
+
+.video-play-btn span {
+    display: none;
+}
+
+.video-play-btn:hover {
+    background: var(--camo-tan);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-btn:hover i {
+    color: var(--bg-dark);
+}
+
+.video-play-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Video playing state */
+.slide.video-playing .slide-content {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.slide.video-playing .slide-video {
+    z-index: 10;
+}
+
+.slide.video-playing .slide-background::before {
+    opacity: 0;
+}
+
+/* Video element adjustments */
+.slide-video {
+    cursor: pointer;
+}
+
+/* Larger play button on desktop */
+@media (min-width: 768px) {
+    .video-play-btn {
+        width: 120px;
+        height: 120px;
+    }
+
+    .video-play-btn i {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
 @media (max-width: 992px) {
