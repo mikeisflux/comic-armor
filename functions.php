@@ -66,6 +66,64 @@ function comic_armor_setup() {
 add_action( 'after_setup_theme', 'comic_armor_setup' );
 
 /**
+ * Create default pages on theme activation
+ */
+function comic_armor_create_pages() {
+    $pages = array(
+        'about' => array(
+            'title'    => 'About Us',
+            'template' => 'page-about.php',
+        ),
+        'contact' => array(
+            'title'    => 'Contact',
+            'template' => 'page-contact.php',
+        ),
+        'faq' => array(
+            'title'    => 'FAQ',
+            'template' => 'page-faq.php',
+        ),
+        'shipping-info' => array(
+            'title'    => 'Shipping Info',
+            'template' => 'page-shipping-info.php',
+        ),
+        'returns' => array(
+            'title'    => 'Returns Policy',
+            'template' => 'page-returns.php',
+        ),
+    );
+
+    foreach ( $pages as $slug => $page_data ) {
+        // Check if page already exists
+        $existing_page = get_page_by_path( $slug );
+
+        if ( ! $existing_page ) {
+            $page_id = wp_insert_post( array(
+                'post_title'     => $page_data['title'],
+                'post_name'      => $slug,
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+            ) );
+
+            if ( $page_id && ! is_wp_error( $page_id ) ) {
+                update_post_meta( $page_id, '_wp_page_template', $page_data['template'] );
+            }
+        }
+    }
+}
+add_action( 'after_switch_theme', 'comic_armor_create_pages' );
+
+// Also run on admin init if pages don't exist (for theme updates)
+function comic_armor_maybe_create_pages() {
+    if ( get_option( 'comic_armor_pages_created' ) ) {
+        return;
+    }
+    comic_armor_create_pages();
+    update_option( 'comic_armor_pages_created', true );
+}
+add_action( 'admin_init', 'comic_armor_maybe_create_pages' );
+
+/**
  * Fallback menu if no menu is set
  */
 function comic_armor_fallback_menu() {
