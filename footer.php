@@ -89,10 +89,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <a href="mailto:support@comicarmor.com">support@comicarmor.com</a>
                             </li>
                             <li>
-                                <i class="fas fa-phone"></i>
-                                <a href="tel:+18005551234">1-800-555-1234</a>
-                            </li>
-                            <li>
                                 <i class="fas fa-clock"></i>
                                 <span>Mon-Fri: 9AM - 5PM EST</span>
                             </li>
