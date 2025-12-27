@@ -743,12 +743,14 @@ h1, h2, h3, h4, h5, h6 {
 .about-content h2 {
     font-size: 2.5rem;
     margin-bottom: var(--spacing-md);
+    color: var(--text-light);
 }
 
 .about-content p {
     margin-bottom: var(--spacing-md);
     font-size: 1.1rem;
     line-height: 1.8;
+    color: var(--text-light);
 }
 
 .about-stats {
@@ -776,7 +778,8 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    opacity: 0.8;
+    color: var(--text-light);
+    opacity: 0.9;
     margin-top: var(--spacing-xs);
 }
 
@@ -1481,7 +1484,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: var(--spacing-md);
-    color: var(--text-dark);
+    color: inherit;
 }
 
 .about-stats {
