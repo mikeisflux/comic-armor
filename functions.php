@@ -113,15 +113,8 @@ function comic_armor_create_pages() {
 }
 add_action( 'after_switch_theme', 'comic_armor_create_pages' );
 
-// Also run on admin init if pages don't exist (for theme updates)
-function comic_armor_maybe_create_pages() {
-    if ( get_option( 'comic_armor_pages_created' ) ) {
-        return;
-    }
-    comic_armor_create_pages();
-    update_option( 'comic_armor_pages_created', true );
-}
-add_action( 'admin_init', 'comic_armor_maybe_create_pages' );
+// Also run on init to create any missing pages
+add_action( 'init', 'comic_armor_create_pages', 20 );
 
 /**
  * Fallback menu if no menu is set
