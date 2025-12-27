@@ -114,7 +114,7 @@ get_header();
     </section>
 
     <!-- FAQ CTA -->
-    <section class="section contact-faq camo-pattern camo-overlay">
+    <section class="section contact-faq">
         <div class="container text-center">
             <h2 class="section-title"><?php esc_html_e( 'Looking for Quick', 'comic-armor' ); ?> <span><?php esc_html_e( 'Answers?', 'comic-armor' ); ?></span></h2>
             <p><?php esc_html_e( 'Check out our FAQ page for answers to commonly asked questions.', 'comic-armor' ); ?></p>

@@ -1702,6 +1702,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-faq {
     padding: var(--spacing-xxl) 0;
+    background: var(--camo-dark);
+}
+
+.contact-faq .section-title {
+    color: var(--text-light);
 }
 
 .contact-faq p {
