@@ -301,6 +301,17 @@ function comic_armor_customize_register( $wp_customize ) {
         'section'     => 'comic_armor_hero',
     ) ) );
 
+    $wp_customize->add_setting( 'hero_slide_video_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'hero_slide_video_url', array(
+        'label'       => __( 'Video Slide Video URL', 'comic-armor' ),
+        'section'     => 'comic_armor_hero',
+        'type'        => 'url',
+        'description' => __( 'YouTube URL or direct video file URL for the video slide.', 'comic-armor' ),
+    ) );
+
     // Slide 2
     $wp_customize->add_setting( 'hero_slide_1_title', array(
         'default'           => 'COMIC ARMOR',

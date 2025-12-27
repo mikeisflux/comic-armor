@@ -19,22 +19,23 @@ get_header();
         <div class="slider-wrapper">
             <?php
             // Slide data
-            // Get promo video URL for first slide default
-            $promo_video = get_theme_mod( 'promo_video_url', '' );
+            // Get video URL for first slide (blank by default)
+            $video_slide_url = get_theme_mod( 'hero_slide_video_url', '' );
 
             $slides = array(
                 1 => array(
-                    'title'       => get_theme_mod( 'hero_slide_video_title', 'COMIC ARMOR' ),
-                    'subtitle'    => get_theme_mod( 'hero_slide_video_subtitle', 'See It In Action' ),
-                    'description' => get_theme_mod( 'hero_slide_video_description', 'Watch how Comic Armor protects your valuable comics during shipping.' ),
+                    'title'       => get_theme_mod( 'hero_slide_video_title', '' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_video_subtitle', '' ),
+                    'description' => get_theme_mod( 'hero_slide_video_description', '' ),
                     'image'       => get_theme_mod( 'hero_slide_video_image', '' ),
-                    'video'       => $promo_video,
-                    'btn1_text'   => 'Shop Now',
-                    'btn1_icon'   => 'fa-arrow-right',
-                    'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
-                    'btn2_text'   => 'Learn More',
-                    'btn2_icon'   => 'fa-info-circle',
-                    'btn2_url'    => '#about-section',
+                    'video'       => $video_slide_url,
+                    'is_video_slide' => true,
+                    'btn1_text'   => '',
+                    'btn1_icon'   => '',
+                    'btn1_url'    => '',
+                    'btn2_text'   => '',
+                    'btn2_icon'   => '',
+                    'btn2_url'    => '',
                 ),
                 2 => array(
                     'title'       => get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' ),
@@ -80,9 +81,8 @@ get_header();
             foreach ( $slides as $num => $slide ) :
                 $is_active = ( $num === 1 ) ? 'active' : '';
                 $has_video = ! empty( $slide['video'] );
-            ?>
-            <!-- Slide <?php echo esc_attr( $num ); ?> -->
-            <?php
+                $is_video_slide = isset( $slide['is_video_slide'] ) && $slide['is_video_slide'];
+
                 // Check if video is YouTube/Vimeo
                 $is_youtube = $has_video && ( strpos( $slide['video'], 'youtube.com' ) !== false || strpos( $slide['video'], 'youtu.be' ) !== false );
                 $youtube_id = '';
@@ -91,53 +91,87 @@ get_header();
                     $youtube_id = isset( $matches[1] ) ? $matches[1] : '';
                 }
             ?>
-            <div class="slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
-                <div class="slide-background" style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');">
-                    <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
-                        <div class="slide-youtube-video" data-video-id="<?php echo esc_attr( $youtube_id ); ?>">
-                            <iframe
-                                src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-                                frameborder="0"
-                                allow="autoplay; encrypted-media"
-                                allowfullscreen
-                                class="slide-video-iframe">
-                            </iframe>
-                        </div>
-                    <?php elseif ( $has_video ) : ?>
-                        <video class="slide-video" loop playsinline autoplay preload="metadata">
-                            <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
-                        </video>
-                    <?php endif; ?>
-                </div>
-                <div class="slide-content">
-                    <span class="slide-subtitle <?php echo $num === 1 ? 'animate-fadeInUp' : ''; ?>">
-                        <?php echo esc_html( $slide['subtitle'] ); ?>
-                    </span>
-                    <h1 class="slide-title <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-1' : ''; ?>">
-                        <?php
-                        $words = explode( ' ', $slide['title'] );
-                        if ( count( $words ) > 1 ) {
-                            echo esc_html( $words[0] ) . ' <span>' . esc_html( implode( ' ', array_slice( $words, 1 ) ) ) . '</span>';
-                        } else {
-                            echo '<span>' . esc_html( $slide['title'] ) . '</span>';
-                        }
-                        ?>
-                    </h1>
-                    <p class="slide-description <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-2' : ''; ?>">
-                        <?php echo esc_html( $slide['description'] ); ?>
-                    </p>
-                    <div class="slide-buttons <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-3' : ''; ?>">
-                        <a href="<?php echo esc_url( $slide['btn1_url'] ); ?>" class="btn btn-primary">
-                            <?php echo esc_html( $slide['btn1_text'] ); ?> <i class="fas <?php echo esc_attr( $slide['btn1_icon'] ); ?> btn-icon"></i>
-                        </a>
-                        <?php if ( ! empty( $slide['btn2_text'] ) ) : ?>
-                            <a href="<?php echo esc_url( $slide['btn2_url'] ); ?>" class="btn btn-outline">
-                                <i class="fas <?php echo esc_attr( $slide['btn2_icon'] ); ?> btn-icon"></i> <?php echo esc_html( $slide['btn2_text'] ); ?>
-                            </a>
+            <!-- Slide <?php echo esc_attr( $num ); ?> -->
+            <?php if ( $is_video_slide ) : ?>
+                <!-- Video Slide - Foreground Video -->
+                <div class="slide video-slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
+                    <div class="video-slide-container">
+                        <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
+                            <div class="foreground-video-wrapper">
+                                <iframe
+                                    src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+                                    frameborder="0"
+                                    allow="autoplay; encrypted-media"
+                                    allowfullscreen
+                                    class="foreground-video-iframe">
+                                </iframe>
+                            </div>
+                        <?php elseif ( $has_video ) : ?>
+                            <div class="foreground-video-wrapper">
+                                <video class="foreground-video" loop playsinline autoplay controls preload="metadata">
+                                    <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
+                                </video>
+                            </div>
+                        <?php else : ?>
+                            <!-- Blank slide - no video configured -->
+                            <div class="video-slide-placeholder">
+                                <p><?php esc_html_e( 'Video not configured. Add a video URL in the Customizer.', 'comic-armor' ); ?></p>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            <?php else : ?>
+                <!-- Regular Slide -->
+                <div class="slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
+                    <div class="slide-background" style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');">
+                        <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
+                            <div class="slide-youtube-video" data-video-id="<?php echo esc_attr( $youtube_id ); ?>">
+                                <iframe
+                                    src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+                                    frameborder="0"
+                                    allow="autoplay; encrypted-media"
+                                    allowfullscreen
+                                    class="slide-video-iframe">
+                                </iframe>
+                            </div>
+                        <?php elseif ( $has_video ) : ?>
+                            <video class="slide-video" muted loop playsinline autoplay preload="metadata">
+                                <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
+                            </video>
+                        <?php endif; ?>
+                    </div>
+                    <div class="slide-content">
+                        <span class="slide-subtitle <?php echo $num === 1 ? 'animate-fadeInUp' : ''; ?>">
+                            <?php echo esc_html( $slide['subtitle'] ); ?>
+                        </span>
+                        <h1 class="slide-title <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-1' : ''; ?>">
+                            <?php
+                            $words = explode( ' ', $slide['title'] );
+                            if ( count( $words ) > 1 ) {
+                                echo esc_html( $words[0] ) . ' <span>' . esc_html( implode( ' ', array_slice( $words, 1 ) ) ) . '</span>';
+                            } else {
+                                echo '<span>' . esc_html( $slide['title'] ) . '</span>';
+                            }
+                            ?>
+                        </h1>
+                        <p class="slide-description <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-2' : ''; ?>">
+                            <?php echo esc_html( $slide['description'] ); ?>
+                        </p>
+                        <div class="slide-buttons <?php echo $num === 1 ? 'animate-fadeInUp animate-delay-3' : ''; ?>">
+                            <?php if ( ! empty( $slide['btn1_text'] ) ) : ?>
+                            <a href="<?php echo esc_url( $slide['btn1_url'] ); ?>" class="btn btn-primary">
+                                <?php echo esc_html( $slide['btn1_text'] ); ?> <i class="fas <?php echo esc_attr( $slide['btn1_icon'] ); ?> btn-icon"></i>
+                            </a>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $slide['btn2_text'] ) ) : ?>
+                                <a href="<?php echo esc_url( $slide['btn2_url'] ); ?>" class="btn btn-outline">
+                                    <i class="fas <?php echo esc_attr( $slide['btn2_icon'] ); ?> btn-icon"></i> <?php echo esc_html( $slide['btn2_text'] ); ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php endforeach; ?>
         </div>
 
