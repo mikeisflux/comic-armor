@@ -74,6 +74,42 @@
                     $slide.addClass('has-youtube-video');
                 }
             });
+
+            // Handle foreground video slides (video slide with foreground video)
+            this.initForegroundVideoSlide();
+        }
+
+        initForegroundVideoSlide() {
+            const $videoSlide = this.$slider.find('.video-slide');
+            if (!$videoSlide.length) return;
+
+            const $foregroundVideo = $videoSlide.find('.foreground-video');
+            const $foregroundIframe = $videoSlide.find('.foreground-video-iframe');
+
+            // Handle native foreground video ended
+            if ($foregroundVideo.length) {
+                $foregroundVideo[0].addEventListener('ended', () => {
+                    this.nextSlide();
+                });
+            }
+
+            // Handle YouTube iframe - listen for YouTube API messages
+            if ($foregroundIframe.length) {
+                // Listen for YouTube player state changes
+                window.addEventListener('message', (event) => {
+                    if (event.origin !== 'https://www.youtube.com') return;
+
+                    try {
+                        const data = JSON.parse(event.data);
+                        // Check if video ended (state 0 = ended)
+                        if (data.event === 'onStateChange' && data.info === 0) {
+                            this.nextSlide();
+                        }
+                    } catch (e) {
+                        // Not a JSON message, ignore
+                    }
+                });
+            }
         }
 
         playVideo($slide, $video, $playBtn) {
