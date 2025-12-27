@@ -93,8 +93,9 @@ get_header();
             ?>
             <!-- Slide <?php echo esc_attr( $num ); ?> -->
             <?php if ( $is_video_slide ) : ?>
-                <!-- Video Slide - Foreground Video -->
+                <!-- Video Slide - Foreground Video with Background -->
                 <div class="slide video-slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
+                    <div class="slide-background" style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');"></div>
                     <div class="video-slide-container">
                         <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
                             <div class="foreground-video-wrapper">

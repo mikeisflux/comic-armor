@@ -420,7 +420,18 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Video Slide - Foreground Video */
 .video-slide {
-    background: #ffffff;
+    position: relative;
+}
+
+.video-slide .slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
 }
 
 .video-slide-container {
@@ -430,7 +441,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff;
+    z-index: 10;
 }
 
 .foreground-video-wrapper {
@@ -463,11 +474,11 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: #ffffff;
-    color: #666;
+    color: var(--text-light);
     font-size: 1.2rem;
     text-align: center;
     padding: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Hide camo overlay when video slide is active */
