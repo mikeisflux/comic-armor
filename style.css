@@ -53,6 +53,7 @@ Requires PHP: 7.4
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
+    --spacing-xxl: 8rem;
 
     /* Border Radius */
     --radius-sm: 2px;
@@ -1385,9 +1386,15 @@ h1, h2, h3, h4, h5, h6 {
    Page Hero Section (for inner pages)
    ========================================================================== */
 .page-hero {
-    padding: var(--spacing-xxl) 0;
+    padding: var(--spacing-xl) 0;
     text-align: center;
     background: var(--bg-dark);
+}
+
+.page-hero .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
 }
 
 .page-hero .page-subtitle {
