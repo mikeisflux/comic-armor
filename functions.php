@@ -260,13 +260,54 @@ function comic_armor_customize_register( $wp_customize ) {
         'description' => __( 'Configure the hero slider on the front page.', 'comic-armor' ),
     ) );
 
-    // Slide 1
+    // Video Slide (Slide 1 - uses promo video)
+    $wp_customize->add_setting( 'hero_slide_video_title', array(
+        'default'           => 'COMIC ARMOR',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_video_title', array(
+        'label'   => __( 'Video Slide Title', 'comic-armor' ),
+        'section' => 'comic_armor_hero',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_video_subtitle', array(
+        'default'           => 'See It In Action',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_video_subtitle', array(
+        'label'   => __( 'Video Slide Subtitle', 'comic-armor' ),
+        'section' => 'comic_armor_hero',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_video_description', array(
+        'default'           => 'Watch how Comic Armor protects your valuable comics during shipping.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+    $wp_customize->add_control( 'hero_slide_video_description', array(
+        'label'   => __( 'Video Slide Description', 'comic-armor' ),
+        'section' => 'comic_armor_hero',
+        'type'    => 'textarea',
+    ) );
+
+    $wp_customize->add_setting( 'hero_slide_video_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_video_image', array(
+        'label'       => __( 'Video Slide Fallback Image', 'comic-armor' ),
+        'description' => __( 'Shown if video fails to load', 'comic-armor' ),
+        'section'     => 'comic_armor_hero',
+    ) ) );
+
+    // Slide 2
     $wp_customize->add_setting( 'hero_slide_1_title', array(
         'default'           => 'COMIC ARMOR',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_1_title', array(
-        'label'   => __( 'Slide 1 Title', 'comic-armor' ),
+        'label'   => __( 'Slide 2 Title', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -276,7 +317,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_1_subtitle', array(
-        'label'   => __( 'Slide 1 Subtitle', 'comic-armor' ),
+        'label'   => __( 'Slide 2 Subtitle', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -286,7 +327,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'hero_slide_1_description', array(
-        'label'   => __( 'Slide 1 Description', 'comic-armor' ),
+        'label'   => __( 'Slide 2 Description', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'textarea',
     ) );
@@ -296,7 +337,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_1_image', array(
-        'label'   => __( 'Slide 1 Background Image', 'comic-armor' ),
+        'label'   => __( 'Slide 2 Background Image', 'comic-armor' ),
         'section' => 'comic_armor_hero',
     ) ) );
 
@@ -305,19 +346,19 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_1_video', array(
-        'label'       => __( 'Slide 1 Video URL (MP4)', 'comic-armor' ),
+        'label'       => __( 'Slide 2 Video URL (MP4)', 'comic-armor' ),
         'section'     => 'comic_armor_hero',
         'type'        => 'url',
         'description' => __( 'Optional: Add a video background for this slide.', 'comic-armor' ),
     ) );
 
-    // Slide 2
+    // Slide 3
     $wp_customize->add_setting( 'hero_slide_2_title', array(
         'default'           => 'BATTLE TESTED',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_2_title', array(
-        'label'   => __( 'Slide 2 Title', 'comic-armor' ),
+        'label'   => __( 'Slide 3 Title', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -327,7 +368,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_2_subtitle', array(
-        'label'   => __( 'Slide 2 Subtitle', 'comic-armor' ),
+        'label'   => __( 'Slide 3 Subtitle', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -337,7 +378,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'hero_slide_2_description', array(
-        'label'   => __( 'Slide 2 Description', 'comic-armor' ),
+        'label'   => __( 'Slide 3 Description', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'textarea',
     ) );
@@ -347,7 +388,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_2_image', array(
-        'label'   => __( 'Slide 2 Background Image', 'comic-armor' ),
+        'label'   => __( 'Slide 3 Background Image', 'comic-armor' ),
         'section' => 'comic_armor_hero',
     ) ) );
 
@@ -356,19 +397,19 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_2_video', array(
-        'label'       => __( 'Slide 2 Video URL (MP4)', 'comic-armor' ),
+        'label'       => __( 'Slide 3 Video URL (MP4)', 'comic-armor' ),
         'section'     => 'comic_armor_hero',
         'type'        => 'url',
         'description' => __( 'Optional: Add a video for this slide.', 'comic-armor' ),
     ) );
 
-    // Slide 3
+    // Slide 4
     $wp_customize->add_setting( 'hero_slide_3_title', array(
         'default'           => 'SHOP NOW',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_3_title', array(
-        'label'   => __( 'Slide 3 Title', 'comic-armor' ),
+        'label'   => __( 'Slide 4 Title', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -378,7 +419,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_text_field',
     ) );
     $wp_customize->add_control( 'hero_slide_3_subtitle', array(
-        'label'   => __( 'Slide 3 Subtitle', 'comic-armor' ),
+        'label'   => __( 'Slide 4 Subtitle', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'text',
     ) );
@@ -388,7 +429,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'hero_slide_3_description', array(
-        'label'   => __( 'Slide 3 Description', 'comic-armor' ),
+        'label'   => __( 'Slide 4 Description', 'comic-armor' ),
         'section' => 'comic_armor_hero',
         'type'    => 'textarea',
     ) );
@@ -398,7 +439,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_slide_3_image', array(
-        'label'   => __( 'Slide 3 Background Image', 'comic-armor' ),
+        'label'   => __( 'Slide 4 Background Image', 'comic-armor' ),
         'section' => 'comic_armor_hero',
     ) ) );
 
@@ -407,7 +448,7 @@ function comic_armor_customize_register( $wp_customize ) {
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'hero_slide_3_video', array(
-        'label'       => __( 'Slide 3 Video URL (MP4)', 'comic-armor' ),
+        'label'       => __( 'Slide 4 Video URL (MP4)', 'comic-armor' ),
         'section'     => 'comic_armor_hero',
         'type'        => 'url',
         'description' => __( 'Optional: Add a video for this slide.', 'comic-armor' ),
