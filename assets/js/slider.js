@@ -69,7 +69,7 @@
                     }
                 }
 
-                // YouTube videos autoplay muted - just track for slide changes
+                // YouTube videos autoplay with sound - just track for slide changes
                 if ($youtubeVideo.length) {
                     $slide.addClass('has-youtube-video');
                 }
@@ -79,8 +79,7 @@
         playVideo($slide, $video, $playBtn) {
             const video = $video[0];
 
-            // Unmute and play
-            video.muted = false;
+            // Play from beginning
             video.currentTime = 0;
             video.play();
 
@@ -108,7 +107,6 @@
         resetVideo($slide, $video, $playBtn) {
             const video = $video[0];
 
-            video.muted = true;
             video.currentTime = 0;
             $slide.removeClass('video-playing');
             $playBtn.removeClass('hidden');
@@ -129,7 +127,6 @@
                 if ($video.length) {
                     const video = $video[0];
                     video.pause();
-                    video.muted = true;
                     video.currentTime = 0;
                     $slide.removeClass('video-playing');
                     if ($playBtn.length) {

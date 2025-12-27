@@ -96,7 +96,7 @@ get_header();
                     <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
                         <div class="slide-youtube-video" data-video-id="<?php echo esc_attr( $youtube_id ); ?>">
                             <iframe
-                                src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+                                src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
                                 frameborder="0"
                                 allow="autoplay; encrypted-media"
                                 allowfullscreen
@@ -104,7 +104,7 @@ get_header();
                             </iframe>
                         </div>
                     <?php elseif ( $has_video ) : ?>
-                        <video class="slide-video" muted loop playsinline autoplay preload="metadata">
+                        <video class="slide-video" loop playsinline autoplay preload="metadata">
                             <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
                         </video>
                     <?php endif; ?>
