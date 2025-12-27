@@ -137,7 +137,7 @@ get_header();
     </section>
 
     <!-- Free Shipping Banner -->
-    <section class="section free-shipping-banner camo-pattern camo-overlay">
+    <section class="section free-shipping-banner">
         <div class="container text-center">
             <div class="shipping-icon-large"><i class="fas fa-truck"></i></div>
             <h2 class="section-title"><?php esc_html_e( 'Free Shipping', 'comic-armor' ); ?> <span><?php esc_html_e( 'Available', 'comic-armor' ); ?></span></h2>

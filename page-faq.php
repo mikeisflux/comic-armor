@@ -191,7 +191,7 @@ get_header();
     </section>
 
     <!-- Contact CTA -->
-    <section class="section faq-cta camo-pattern camo-overlay">
+    <section class="section faq-cta">
         <div class="container text-center">
             <h2 class="section-title"><?php esc_html_e( 'Still Have', 'comic-armor' ); ?> <span><?php esc_html_e( 'Questions?', 'comic-armor' ); ?></span></h2>
             <p><?php esc_html_e( 'Can\'t find what you\'re looking for? Our support team is here to help.', 'comic-armor' ); ?></p>

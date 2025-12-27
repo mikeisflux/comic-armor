@@ -142,7 +142,7 @@ get_header();
     </section>
 
     <!-- Refund Info -->
-    <section class="section returns-refund camo-pattern camo-overlay">
+    <section class="section returns-refund">
         <div class="container">
             <div class="refund-grid">
                 <div class="refund-content">

@@ -92,7 +92,7 @@ get_header();
     </section>
 
     <!-- CTA Section -->
-    <section class="section about-cta camo-pattern camo-overlay">
+    <section class="section about-cta">
         <div class="container text-center">
             <h2 class="section-title"><?php esc_html_e( 'Ready to Protect Your', 'comic-armor' ); ?> <span><?php esc_html_e( 'Collection?', 'comic-armor' ); ?></span></h2>
             <p><?php esc_html_e( 'Join thousands of collectors who trust Comic Armor for their shipping protection needs.', 'comic-armor' ); ?></p>
