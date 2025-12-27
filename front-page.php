@@ -220,14 +220,6 @@ get_header();
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <span class="product-category">
-                                        <?php
-                                        $terms = get_the_terms( get_the_ID(), 'product_cat' );
-                                        if ( $terms && ! is_wp_error( $terms ) ) {
-                                            echo esc_html( $terms[0]->name );
-                                        }
-                                        ?>
-                                    </span>
                                     <h3 class="product-title">
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                     </h3>

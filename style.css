@@ -752,10 +752,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--spacing-md);
     justify-content: center;
+}
+
+.products-grid .product-card {
+    width: 280px;
+    max-width: 100%;
 }
 
 .product-card {
