@@ -517,6 +517,9 @@ function comic_armor_get_featured_products( $limit = 4 ) {
         'post_type'      => 'product',
         'posts_per_page' => $limit,
         'post_status'    => 'publish',
+        'meta_key'       => '_price',
+        'orderby'        => 'meta_value_num',
+        'order'          => 'ASC',
         'tax_query'      => array(
             array(
                 'taxonomy' => 'product_visibility',
@@ -533,8 +536,9 @@ function comic_armor_get_featured_products( $limit = 4 ) {
             'post_type'      => 'product',
             'posts_per_page' => $limit,
             'post_status'    => 'publish',
-            'orderby'        => 'date',
-            'order'          => 'DESC',
+            'meta_key'       => '_price',
+            'orderby'        => 'meta_value_num',
+            'order'          => 'ASC',
         );
         $products = new WP_Query( $args );
     }

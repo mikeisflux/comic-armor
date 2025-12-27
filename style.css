@@ -619,6 +619,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     font-size: 1.1rem;
     opacity: 0.9;
+    color: white;
 }
 
 /* ==========================================================================
@@ -754,6 +755,7 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-md);
+    justify-content: center;
 }
 
 .product-card {
