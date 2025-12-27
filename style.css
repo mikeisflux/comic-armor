@@ -173,7 +173,12 @@ h1, h2, h3, h4, h5, h6 {
     background-size: 150px 150px;
     opacity: 0.15;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
+}
+
+.camo-overlay > .container {
+    position: relative;
+    z-index: 2;
 }
 
 /* ==========================================================================
@@ -692,6 +697,7 @@ h1, h2, h3, h4, h5, h6 {
 .about-image img {
     width: 100%;
     border: 5px solid var(--camo-tan);
+    border-radius: 10px;
 }
 
 .about-image::before {
