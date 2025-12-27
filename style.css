@@ -418,20 +418,10 @@ h1, h2, h3, h4, h5, h6 {
     pointer-events: none;
 }
 
-.slide-youtube-video::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(26, 31, 26, 0.7) 0%,
-        rgba(45, 58, 45, 0.5) 50%,
-        rgba(26, 31, 26, 0.7) 100%
-    );
-    z-index: 1;
+/* Hide camo overlay when video slide is active */
+.hero-slider .slide.has-youtube-video.active ~ .camo-overlay::before,
+.hero-slider:has(.slide.has-youtube-video.active)::before {
+    opacity: 0;
 }
 
 .slide-video-iframe {
