@@ -126,6 +126,7 @@ function comic_armor_fallback_menu() {
         echo '<li><a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Shop</a></li>';
     }
     echo '<li><a href="' . esc_url( home_url( '/about/' ) ) . '">About</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/faq/' ) ) . '">FAQ</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/contact/' ) ) . '">Contact</a></li>';
     echo '</ul>';
 }
