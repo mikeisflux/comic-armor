@@ -408,6 +408,45 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover;
 }
 
+.slide-youtube-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.slide-youtube-video::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(26, 31, 26, 0.7) 0%,
+        rgba(45, 58, 45, 0.5) 50%,
+        rgba(26, 31, 26, 0.7) 100%
+    );
+    z-index: 1;
+}
+
+.slide-video-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    min-height: 100vh;
+    min-width: 177.78vh; /* 16:9 aspect ratio inverse */
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+}
+
 .slide-content {
     position: relative;
     z-index: 10;

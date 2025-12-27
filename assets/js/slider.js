@@ -36,8 +36,10 @@
             this.$slides.each((index, slide) => {
                 const $slide = $(slide);
                 const $video = $slide.find('.slide-video');
+                const $youtubeVideo = $slide.find('.slide-youtube-video');
                 const $playBtn = $slide.find('.video-play-btn');
 
+                // Handle native video elements with play buttons
                 if ($video.length && $playBtn.length) {
                     // Click play button to start video
                     $playBtn.on('click', (e) => {
@@ -57,6 +59,19 @@
                             this.pauseVideo($slide, $video, $playBtn);
                         }
                     });
+                }
+
+                // Handle autoplay native videos (no play button)
+                if ($video.length && !$playBtn.length) {
+                    // Start playing when slide becomes active
+                    if ($slide.hasClass('active')) {
+                        $video[0].play().catch(() => {});
+                    }
+                }
+
+                // YouTube videos autoplay muted - just track for slide changes
+                if ($youtubeVideo.length) {
+                    $slide.addClass('has-youtube-video');
                 }
             });
         }
@@ -107,8 +122,10 @@
             this.$slides.each((index, slide) => {
                 const $slide = $(slide);
                 const $video = $slide.find('.slide-video');
+                const $youtubeVideo = $slide.find('.slide-youtube-video');
                 const $playBtn = $slide.find('.video-play-btn');
 
+                // Stop native videos
                 if ($video.length) {
                     const video = $video[0];
                     video.pause();
@@ -119,8 +136,43 @@
                         $playBtn.removeClass('hidden');
                     }
                 }
+
+                // Reset YouTube iframes by reloading src (this restarts them)
+                if ($youtubeVideo.length) {
+                    const $iframe = $youtubeVideo.find('iframe');
+                    if ($iframe.length) {
+                        const src = $iframe.attr('src');
+                        $iframe.attr('src', src);
+                    }
+                }
             });
             this.isVideoPlaying = false;
+        }
+
+        // Play videos on the active slide
+        playActiveSlideVideos() {
+            const $activeSlide = this.$slides.eq(this.currentSlide);
+            const $video = $activeSlide.find('.slide-video');
+            const $playBtn = $activeSlide.find('.video-play-btn');
+
+            // Play native autoplay videos (those without play buttons)
+            if ($video.length && !$playBtn.length) {
+                $video[0].play().catch(() => {});
+            }
+        }
+
+        // Pause videos on inactive slides
+        pauseInactiveSlideVideos() {
+            this.$slides.each((index, slide) => {
+                if (index === this.currentSlide) return;
+
+                const $slide = $(slide);
+                const $video = $slide.find('.slide-video');
+
+                if ($video.length) {
+                    $video[0].pause();
+                }
+            });
         }
 
         bindEvents() {
@@ -199,8 +251,8 @@
                 return;
             }
 
-            // Stop any playing videos when changing slides
-            this.stopAllVideos();
+            // Pause videos on current slide before switching
+            this.pauseInactiveSlideVideos();
 
             this.isAnimating = true;
 
@@ -221,6 +273,9 @@
             // Add active class to new slide
             this.$slides.eq(this.currentSlide).addClass('active');
             this.$dots.eq(this.currentSlide).addClass('active');
+
+            // Play videos on the new active slide
+            this.playActiveSlideVideos();
 
             // Reset autoplay
             this.resetAutoplay();

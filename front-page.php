@@ -19,19 +19,22 @@ get_header();
         <div class="slider-wrapper">
             <?php
             // Slide data
+            // Get promo video URL for first slide default
+            $promo_video = get_theme_mod( 'promo_video_url', '' );
+
             $slides = array(
                 1 => array(
                     'title'       => get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' ),
                     'subtitle'    => get_theme_mod( 'hero_slide_1_subtitle', 'Premium Comic Book Protection' ),
                     'description' => get_theme_mod( 'hero_slide_1_description', 'Defend your comics from damage during shipping. Military-grade protection for your valuable collection.' ),
                     'image'       => get_theme_mod( 'hero_slide_1_image', '' ),
-                    'video'       => get_theme_mod( 'hero_slide_1_video', '' ),
+                    'video'       => get_theme_mod( 'hero_slide_1_video', $promo_video ),
                     'btn1_text'   => 'Shop Now',
                     'btn1_icon'   => 'fa-arrow-right',
                     'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
-                    'btn2_text'   => 'Watch Demo',
-                    'btn2_icon'   => 'fa-play',
-                    'btn2_url'    => '#video-section',
+                    'btn2_text'   => 'Learn More',
+                    'btn2_icon'   => 'fa-info-circle',
+                    'btn2_url'    => '#about-section',
                 ),
                 2 => array(
                     'title'       => get_theme_mod( 'hero_slide_2_title', 'BATTLE TESTED' ),
@@ -66,16 +69,31 @@ get_header();
                 $has_video = ! empty( $slide['video'] );
             ?>
             <!-- Slide <?php echo esc_attr( $num ); ?> -->
+            <?php
+                // Check if video is YouTube/Vimeo
+                $is_youtube = $has_video && ( strpos( $slide['video'], 'youtube.com' ) !== false || strpos( $slide['video'], 'youtu.be' ) !== false );
+                $youtube_id = '';
+                if ( $is_youtube ) {
+                    preg_match( '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $slide['video'], $matches );
+                    $youtube_id = isset( $matches[1] ) ? $matches[1] : '';
+                }
+            ?>
             <div class="slide <?php echo esc_attr( $is_active ); ?>" data-slide="<?php echo esc_attr( $num ); ?>">
                 <div class="slide-background" style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');">
-                    <?php if ( $has_video ) : ?>
-                        <video class="slide-video" muted loop playsinline preload="metadata">
+                    <?php if ( $has_video && $is_youtube && $youtube_id ) : ?>
+                        <div class="slide-youtube-video" data-video-id="<?php echo esc_attr( $youtube_id ); ?>">
+                            <iframe
+                                src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr( $youtube_id ); ?>&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                                class="slide-video-iframe">
+                            </iframe>
+                        </div>
+                    <?php elseif ( $has_video ) : ?>
+                        <video class="slide-video" muted loop playsinline autoplay preload="metadata">
                             <source src="<?php echo esc_url( $slide['video'] ); ?>" type="video/mp4">
                         </video>
-                        <button class="video-play-btn" aria-label="<?php esc_attr_e( 'Play Video', 'comic-armor' ); ?>">
-                            <i class="fas fa-play"></i>
-                            <span><?php esc_html_e( 'Play Video', 'comic-armor' ); ?></span>
-                        </button>
                     <?php endif; ?>
                 </div>
                 <div class="slide-content">
