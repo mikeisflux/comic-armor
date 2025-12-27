@@ -24,11 +24,11 @@ get_header();
 
             $slides = array(
                 1 => array(
-                    'title'       => get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' ),
-                    'subtitle'    => get_theme_mod( 'hero_slide_1_subtitle', 'Premium Comic Book Protection' ),
-                    'description' => get_theme_mod( 'hero_slide_1_description', 'Defend your comics from damage during shipping. Military-grade protection for your valuable collection.' ),
-                    'image'       => get_theme_mod( 'hero_slide_1_image', '' ),
-                    'video'       => get_theme_mod( 'hero_slide_1_video', $promo_video ),
+                    'title'       => get_theme_mod( 'hero_slide_video_title', 'COMIC ARMOR' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_video_subtitle', 'See It In Action' ),
+                    'description' => get_theme_mod( 'hero_slide_video_description', 'Watch how Comic Armor protects your valuable comics during shipping.' ),
+                    'image'       => get_theme_mod( 'hero_slide_video_image', '' ),
+                    'video'       => $promo_video,
                     'btn1_text'   => 'Shop Now',
                     'btn1_icon'   => 'fa-arrow-right',
                     'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
@@ -37,6 +37,19 @@ get_header();
                     'btn2_url'    => '#about-section',
                 ),
                 2 => array(
+                    'title'       => get_theme_mod( 'hero_slide_1_title', 'COMIC ARMOR' ),
+                    'subtitle'    => get_theme_mod( 'hero_slide_1_subtitle', 'Premium Comic Book Protection' ),
+                    'description' => get_theme_mod( 'hero_slide_1_description', 'Defend your comics from damage during shipping. Military-grade protection for your valuable collection.' ),
+                    'image'       => get_theme_mod( 'hero_slide_1_image', '' ),
+                    'video'       => get_theme_mod( 'hero_slide_1_video', '' ),
+                    'btn1_text'   => 'Shop Now',
+                    'btn1_icon'   => 'fa-arrow-right',
+                    'btn1_url'    => class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#products',
+                    'btn2_text'   => 'Watch Demo',
+                    'btn2_icon'   => 'fa-play',
+                    'btn2_url'    => '#video-section',
+                ),
+                3 => array(
                     'title'       => get_theme_mod( 'hero_slide_2_title', 'BATTLE TESTED' ),
                     'subtitle'    => get_theme_mod( 'hero_slide_2_subtitle', 'Proven Protection' ),
                     'description' => get_theme_mod( 'hero_slide_2_description', 'Trusted by collectors and dealers worldwide. Your comics deserve the best defense.' ),
@@ -49,7 +62,7 @@ get_header();
                     'btn2_icon'   => 'fa-star',
                     'btn2_url'    => '#testimonials',
                 ),
-                3 => array(
+                4 => array(
                     'title'       => get_theme_mod( 'hero_slide_3_title', 'SHOP NOW' ),
                     'subtitle'    => get_theme_mod( 'hero_slide_3_subtitle', 'Gear Up Today' ),
                     'description' => get_theme_mod( 'hero_slide_3_description', 'Get your Comic Armor now and ensure your shipments arrive in mint condition.' ),
@@ -133,6 +146,7 @@ get_header();
             <button class="slider-dot active" data-slide="1" aria-label="Slide 1"></button>
             <button class="slider-dot" data-slide="2" aria-label="Slide 2"></button>
             <button class="slider-dot" data-slide="3" aria-label="Slide 3"></button>
+            <button class="slider-dot" data-slide="4" aria-label="Slide 4"></button>
         </div>
 
         <!-- Slider Arrows -->
